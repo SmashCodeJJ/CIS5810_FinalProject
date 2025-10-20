@@ -1,0 +1,14 @@
+numpy
+torch
+torchvision
+opencv-python
+onnx
+onnxruntime-gpu
+scikit-image
+insightface
+requests
+kornia
+dill
+wandb
+easydict
+albumentations
