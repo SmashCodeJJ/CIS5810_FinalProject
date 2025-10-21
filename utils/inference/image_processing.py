@@ -105,6 +105,10 @@ def get_final_image(final_frames: List[np.ndarray],
     """
     Create final video from frames
     """
+    print(f"[DEBUG get_final_image] final_frames: {len(final_frames) if final_frames else 0}, crop_frames: {len(crop_frames) if crop_frames else 0}")
+    if final_frames:
+        print(f"[DEBUG get_final_image] final_frames[0] length: {len(final_frames[0]) if final_frames[0] else 0}")
+    
     final = full_frame.copy()
     
     # Check if we have any frames to process
@@ -117,6 +121,7 @@ def get_final_image(final_frames: List[np.ndarray],
         print("Warning: No valid face swap results, returning original image")
         return final
     
+    print(f"[DEBUG get_final_image] Processing {len(final_frames)} faces for blending")
     params = [None for i in range(len(final_frames))]
     
     for i in range(len(final_frames)):

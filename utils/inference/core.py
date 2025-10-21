@@ -56,7 +56,9 @@ def model_inference(full_frames: List[np.ndarray],
     final_frames_list = []
     for idx, (crop_frames, tfm_array, source_embed) in enumerate(zip(crop_frames_list, tfm_array_list, source_embeds)):
         # Resize croped frames and get vector which shows on which frames there were faces
+        print(f"[DEBUG] Processing source {idx}: crop_frames has {len(crop_frames)} frames")
         resized_frs, present = resize_frames(crop_frames)
+        print(f"[DEBUG] After resize: {len(resized_frs)} frames, present: {present}")
         
         # Check if we have any valid frames
         if len(resized_frs) == 0:
@@ -81,12 +83,14 @@ def model_inference(full_frames: List[np.ndarray],
         # run model
         size = target_batch_rs.shape[0]
         model_output = []
+        print(f"[DEBUG] Running model on {size} frames with batch size {BS}")
 
         for i in tqdm(range(0, size, BS)):
             Y_st = faceshifter_batch(source_embed, target_batch_rs[i:i+BS], G)
             model_output.append(Y_st)
         torch.cuda.empty_cache()
         model_output = np.concatenate(model_output)
+        print(f"[DEBUG] Model output shape: {model_output.shape}, min: {model_output.min():.2f}, max: {model_output.max():.2f}")
 
         # create list of final frames with transformed faces
         final_frames = []
