@@ -125,25 +125,41 @@ def get_final_image(final_frames: List[np.ndarray],
     params = [None for i in range(len(final_frames))]
     
     for i in range(len(final_frames)):
+        print(f"[DEBUG blend loop] Processing face {i}")
         # Skip if no frame data
         if not final_frames[i] or len(final_frames[i]) == 0:
+            print(f"[DEBUG blend loop] Skipping {i}: no final_frames")
             continue
         if not crop_frames[i] or len(crop_frames[i]) == 0:
+            print(f"[DEBUG blend loop] Skipping {i}: no crop_frames")
             continue
+        
+        print(f"[DEBUG blend loop] final_frames[{i}][0] shape: {final_frames[i][0].shape}")
+        print(f"[DEBUG blend loop] crop_frames[{i}][0] shape: {crop_frames[i][0].shape}")
+        print(f"[DEBUG blend loop] tfm_arrays[{i}][0] shape: {tfm_arrays[i][0].shape}")
             
         frame = cv2.resize(final_frames[i][0], (224, 224))
+        print(f"[DEBUG blend loop] Resized frame shape: {frame.shape}, min/max: {frame.min()}/{frame.max()}")
         
         landmarks = handler.get_without_detection_without_transform(frame)     
         landmarks_tgt = handler.get_without_detection_without_transform(crop_frames[i][0])
+        print(f"[DEBUG blend loop] Got landmarks")
 
         mask, _ = face_mask_static(crop_frames[i][0], landmarks, landmarks_tgt, params[i])
+        print(f"[DEBUG blend loop] Mask shape: {mask.shape}, min/max: {mask.min():.2f}/{mask.max():.2f}")
+        
         mat_rev = cv2.invertAffineTransform(tfm_arrays[i][0])
+        print(f"[DEBUG blend loop] Inverted transform matrix:\n{mat_rev}")
 
         swap_t = cv2.warpAffine(frame, mat_rev, (full_frame.shape[1], full_frame.shape[0]), borderMode=cv2.BORDER_REPLICATE)
+        print(f"[DEBUG blend loop] Warped swap_t shape: {swap_t.shape}, min/max: {swap_t.min()}/{swap_t.max()}")
+        
         mask_t = cv2.warpAffine(mask, mat_rev, (full_frame.shape[1], full_frame.shape[0]))
         mask_t = np.expand_dims(mask_t, 2)
+        print(f"[DEBUG blend loop] Warped mask_t shape: {mask_t.shape}, min/max: {mask_t.min():.2f}/{mask_t.max():.2f}")
 
         final = mask_t*swap_t + (1-mask_t)*final
+        print(f"[DEBUG blend loop] Blended! Final min/max: {final.min()}/{final.max()}")
     final = np.array(final, dtype='uint8')
     return final
 
