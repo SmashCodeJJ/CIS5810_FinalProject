@@ -55,6 +55,7 @@ examples/results/*.png
 examples/results/*.mp4
 examples/results/*.jpg
 !examples/results/.gitkeep
+!examples/results/README.md
 
 # MXNet models (replaced with ONNX)
 *.params
