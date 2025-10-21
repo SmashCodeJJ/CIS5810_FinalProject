@@ -148,6 +148,19 @@ def get_final_image(final_frames: List[np.ndarray],
         mask, _ = face_mask_static(crop_frames[i][0], landmarks, landmarks_tgt, params[i])
         print(f"[DEBUG blend loop] Mask shape: {mask.shape}, min/max: {mask.min():.2f}/{mask.max():.2f}")
         
+        # FIX: If mask is all zeros, create a simple circular mask
+        if mask.max() == 0:
+            print(f"[DEBUG blend loop] Mask is all zeros! Creating fallback circular mask")
+            h, w = mask.shape
+            center = (w // 2, h // 2)
+            radius = min(w, h) // 2 - 10
+            Y, X = np.ogrid[:h, :w]
+            dist_from_center = np.sqrt((X - center[0])**2 + (Y - center[1])**2)
+            mask = (dist_from_center <= radius).astype(np.float32)
+            # Smooth the edges
+            mask = cv2.GaussianBlur(mask, (15, 15), 10)
+            print(f"[DEBUG blend loop] Created fallback mask, min/max: {mask.min():.2f}/{mask.max():.2f}")
+        
         mat_rev = cv2.invertAffineTransform(tfm_arrays[i][0])
         print(f"[DEBUG blend loop] Inverted transform matrix:\n{mat_rev}")
 
