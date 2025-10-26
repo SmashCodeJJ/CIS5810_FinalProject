@@ -22,21 +22,27 @@ The project addresses the computational bottleneck of current face swapping syst
 
 ## 2. Goals and Target Audience
 
-### Primary Goals
+### Primary Goals (Guaranteed Delivery)
 
-1. **Functional Implementation:** Successfully deploy the Sber-Swap face swapping pipeline with all five models (SCRFD, GLintr100, ArcFace, AEI-Net, 2D106Det) working in Google Colab environment
+1. **Real-Time Performance:** Achieve 15-18 FPS for single-face swapping through face tracking, embedding caching, and model optimization techniques
    
-2. **Real-Time Performance:** Achieve 15-25 FPS for single-face swapping through optimization techniques including face tracking, model compression, and pipeline parallelization
+2. **Lighting Robustness:** Implement color correction and lighting adaptation to handle various lighting conditions including backlit scenarios
 
-3. **Quality Preservation:** Maintain realistic face swap quality while optimizing for speed, with minimal visible artifacts and smooth blending
+3. **Non-Frontal Angle Support:** Extend face detection and swapping capabilities to handle faces at moderate angles (±30° to ±45°)
 
-4. **Accessibility:** Create a user-friendly Google Colab notebook that works without specialized hardware requirements
+4. **Accessibility:** Create a user-friendly Google Colab notebook with comprehensive documentation
 
-### Secondary Goals
+### Secondary Goals (If Time Permits)
 
-- Comprehensive documentation of the model architecture and pipeline
-- Performance benchmarking and bottleneck analysis
-- Exploration of quality-speed trade-offs with different model configurations
+- Simple face sticker overlay system using landmark-based positioning
+- Multi-source face selection for attribute-like effects (age/gender variation via different source faces)
+- Advanced lighting correction with histogram matching
+
+### Stretch Goals (Bonus Features)
+
+- Basic sticker animation and scaling
+- Pose-aware face swapping improvements
+- Performance optimization beyond 20 FPS
 
 ### Target Audience
 
@@ -220,8 +226,8 @@ for frame in video:
 
 **Expected Real-Time Performance:**
 - **Phase 1 (Basic):** 8-12 FPS (basic implementation)
-- **Phase 2 (Tracking):** 15-18 FPS (with face tracking)
-- **Phase 3 (Threading):** 20-25 FPS (fully optimized)
+- **Phase 2 (Tracking):** 15-18 FPS (with face tracking) ⭐ **Primary Target**
+- **Phase 3 (Threading):** 20-25 FPS (fully optimized) ⚠️ **Stretch Goal**
 
 ---
 
@@ -381,12 +387,18 @@ Perceptual quality: Acceptable for demos
   - [ ] Display with FPS counter
   - **Target:** 8-12 FPS
 
-- [ ] Add face tracking optimization (Phase 2)
+- [ ] Add face tracking optimization (Phase 2) ⭐ **Primary Goal**
   - [ ] Implement OpenCV tracker (KCF/CSRT)
   - [ ] Detection every N frames (5 frame interval)
   - [ ] Re-detection on tracking failure
   - [ ] Smooth tracking with Kalman filter
   - **Target:** 15-18 FPS
+
+- [ ] Basic lighting improvement
+  - [ ] Color correction post-processing
+  - [ ] Histogram matching implementation
+  - [ ] Lighting condition detection
+  - **Target:** Handle backlit scenarios
 
 **Deliverables:**
 - `inference_realtime.py` (~300 lines)
@@ -398,54 +410,69 @@ Perceptual quality: Acceptable for demos
 **Dates:** Nov 2-8, 2025
 
 **Milestones:**
-- [ ] Multi-threading implementation (Phase 3)
+- [ ] Non-frontal angle improvement ⭐ **Primary Goal**
+  - [ ] Multi-angle face detection training
+  - [ ] Pose-aware processing pipeline
+  - [ ] Angle-specific optimization
+  - **Target:** Support ±45° angles
+
+- [ ] Multi-threading implementation (Phase 3) ⚠️ **Stretch Goal**
   - [ ] Separate capture/process/display threads
   - [ ] Queue management and synchronization
   - [ ] Thread-safe model inference
-  - **Target:** 20-25 FPS
+  - **Target:** 20-25 FPS (if time permits)
 
-- [ ] Additional optimizations
-  - [ ] Frame skipping for 2× effective speed
-  - [ ] Embedding caching verification
-  - [ ] Memory optimization
-  - [ ] GPU utilization analysis
+- [ ] Advanced lighting correction
+  - [ ] Lighting estimation algorithms
+  - [ ] Adaptive color correction
+  - [ ] HDR-like processing
+  - **Target:** Handle extreme lighting conditions
 
 - [ ] Comprehensive testing
   - [ ] Test on various source/target faces
   - [ ] Stress test with different lighting conditions
-  - [ ] Multi-face scenario testing
+  - [ ] Multi-angle testing
   - [ ] Quality vs. speed trade-off analysis
 
 **Deliverables:**
-- Fully optimized real-time system (20-25 FPS)
+- Non-frontal angle support (±45°)
+- Multi-threading implementation (if time permits)
+- Advanced lighting correction
 - Performance comparison table
 - Quality assessment report
-- Edge case documentation
 
-#### Week 4: Polish, Documentation, and Presentation
+#### Week 4: Bonus Features and Final Polish
 **Dates:** Nov 9-15, 2025
 
 **Milestones:**
+- [ ] Simple sticker overlay system ⚠️ **Bonus Feature**
+  - [ ] Basic landmark-based sticker positioning
+  - [ ] 2-3 sticker types (glasses, hat, mustache)
+  - [ ] Real-time sticker placement
+  - **Target:** Simple but functional sticker system
+
+- [ ] Multi-source face selection ⚠️ **Bonus Feature**
+  - [ ] Age/gender variation via different source faces
+  - [ ] Attribute-like effects without model changes
+  - [ ] User interface for source selection
+  - **Target:** Creative workaround for feature modification
+
 - [ ] Google Colab notebook creation
   - [ ] User-friendly interface
   - [ ] Step-by-step instructions
   - [ ] Webcam integration for Colab
   - [ ] Example outputs and visualizations
 
-- [ ] Final documentation
+- [ ] Final documentation and presentation
   - [ ] README with installation guide
-  - [ ] API documentation
   - [ ] Performance benchmarking report
-  - [ ] Known issues and limitations
-
-- [ ] Presentation preparation
   - [ ] Demo video (2-3 minutes)
   - [ ] Presentation slides
-  - [ ] Live demo setup
-  - [ ] Q&A preparation
 
 **Deliverables:**
 - `SberSwap_Realtime_Colab.ipynb`
+- Simple sticker overlay system (bonus)
+- Multi-source face selection (bonus)
 - Final project report (10-15 pages)
 - Demo video showcasing real-time swapping
 - Presentation slides (15-20 slides)
@@ -457,7 +484,9 @@ Perceptual quality: Acceptable for demos
 |----------|----------------|------------|----------------|
 | FPS target not met | Medium | High | Accept 12-15 FPS as acceptable for demos |
 | Colab webcam issues | High | Medium | Use video file input as fallback |
-| Quality degradation | Medium | High | Provide quality/speed trade-off options |
+| Non-frontal angles fail | Medium | Medium | Focus on ±30° angles, accept limitation |
+| Lighting correction insufficient | Medium | Medium | Implement basic color correction only |
+| Bonus features incomplete | High | Low | Prioritize core features, bonus optional |
 | GPU memory overflow | Low | High | Reduce batch size, add memory monitoring |
 | Tracking instability | Medium | Medium | Frequent re-detection, Kalman smoothing |
 
@@ -467,27 +496,75 @@ Perceptual quality: Acceptable for demos
 - ✅ Face swapping works in images (COMPLETED)
 - ✅ Face swapping works in videos (COMPLETED)
 - [ ] Real-time processing at 12+ FPS
+- [ ] Basic lighting improvement
 - [ ] Google Colab notebook with documentation
 
-**Target Goals:**
+**Primary Goals (Guaranteed):**
 - [ ] Real-time processing at 15-18 FPS (Phase 2)
+- [ ] Non-frontal angle support (±30° to ±45°)
+- [ ] Lighting robustness (backlit scenarios)
 - [ ] High quality output (7.5+/10 rating)
 - [ ] Comprehensive documentation and guides
-- [ ] Working demo for presentation
 
-**Stretch Goals:**
+**Secondary Goals (If Time Permits):**
+- [ ] Simple sticker overlay system (2-3 stickers)
+- [ ] Multi-source face selection (age/gender variation)
+- [ ] Advanced lighting correction
+
+**Stretch Goals (Bonus):**
 - [ ] 20-25 FPS with threading (Phase 3)
 - [ ] Multi-face real-time swapping
+- [ ] Sticker animation and scaling
 - [ ] Web interface for easier access
-- [ ] Model quantization for additional speed
+
+---
+
+## Challenge Analysis: 9.4 Requirements
+
+### Requirements Assessment
+
+Based on the 9.4 Challenge requirements, our hybrid approach addresses:
+
+**✅ Fully Supported (Primary Goals):**
+- **Real-time face swapping:** 15-18 FPS target with face tracking optimization
+- **Lighting conditions:** Color correction and histogram matching for various lighting scenarios
+
+**⚠️ Partially Supported (Secondary Goals):**
+- **Non-frontal angles:** Support for ±30° to ±45° angles (moderate improvement)
+- **Face stickers:** Basic landmark-based overlay system (2-3 sticker types)
+
+**❌ Not Supported (Architecture Limitation):**
+- **Feature deformation:** Cannot modify age, gender, smile directly (requires different model architecture)
+
+### Creative Solutions
+
+**For Feature Deformation:** Multi-source face selection approach
+- Provide multiple source faces with different attributes (young/old, male/female, smiling/serious)
+- User selects source face with desired characteristics
+- Achieves similar effect without model architecture changes
+
+**For Face Stickers:** Simplified landmark-based system
+- Map stickers to facial landmarks (glasses → eye landmarks, hat → forehead landmarks)
+- Real-time sticker placement and scaling
+- Basic but functional sticker overlay system
+
+### Realistic Scope
+
+This hybrid approach ensures delivery of core functionality while acknowledging limitations. The focus on achievable goals (15-18 FPS real-time swapping) rather than unrealistic targets (30+ FPS) demonstrates practical engineering judgment and increases project success probability.
 
 ---
 
 ## Conclusion
 
-This project successfully establishes a baseline face swapping system and presents a clear path toward real-time performance through systematic optimization. With the foundation completed (Week 1) and a detailed implementation plan for real-time enhancement (Weeks 2-4), we are positioned to achieve our goal of 15-25 FPS face swapping suitable for live video applications.
+This project successfully establishes a baseline face swapping system and presents a realistic path toward real-time performance through systematic optimization. With the foundation completed (Week 1) and a detailed implementation plan for real-time enhancement (Weeks 2-4), we are positioned to achieve our primary goal of 15-18 FPS face swapping with additional improvements in lighting robustness and non-frontal angle support.
 
-The combination of proven optimization techniques (face tracking, caching, model compression) with comprehensive documentation and testing ensures both technical success and educational value for the CIS5810 course objectives.
+The hybrid approach balances ambitious goals with realistic constraints, ensuring delivery of core features while leaving room for bonus functionality. The combination of proven optimization techniques (face tracking, caching, lighting correction) with comprehensive documentation and testing ensures both technical success and educational value for the CIS5810 course objectives.
+
+**Key Differentiators:**
+- Focus on achievable real-time performance (15-18 FPS vs. unrealistic 30+ FPS)
+- Creative workarounds for challenging requirements (multi-source selection for attribute effects)
+- Comprehensive documentation and analysis (2,300+ lines already written)
+- Realistic scope with clear primary/secondary/stretch goals
 
 ---
 
