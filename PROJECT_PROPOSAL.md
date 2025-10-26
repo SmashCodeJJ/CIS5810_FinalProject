@@ -359,7 +359,7 @@ Perceptual quality: Acceptable for demos
 
 ## 6. Project Timeline, Milestones, and Organization
 
-### Project Timeline (4 Weeks)
+### Project Timeline (6 Weeks)
 
 #### Week 1: Setup and Baseline (Completed ✅)
 **Dates:** Oct 19-25, 2025
@@ -441,8 +441,37 @@ Perceptual quality: Acceptable for demos
 - Performance comparison table
 - Quality assessment report
 
-#### Week 4: Bonus Features and Final Polish
+#### Week 4: Advanced Features and Testing
 **Dates:** Nov 9-15, 2025
+
+**Milestones:**
+- [ ] Multi-threading implementation (Phase 3) ⚠️ **Stretch Goal**
+  - [ ] Separate capture/process/display threads
+  - [ ] Queue management and synchronization
+  - [ ] Thread-safe model inference
+  - **Target:** 20-25 FPS (if time permits)
+
+- [ ] Advanced lighting correction
+  - [ ] Lighting estimation algorithms
+  - [ ] Adaptive color correction
+  - [ ] HDR-like processing
+  - **Target:** Handle extreme lighting conditions
+
+- [ ] Comprehensive testing
+  - [ ] Test on various source/target faces
+  - [ ] Stress test with different lighting conditions
+  - [ ] Multi-angle testing
+  - [ ] Quality vs. speed trade-off analysis
+
+**Deliverables:**
+- Multi-threading implementation (if time permits)
+- Advanced lighting correction
+- Performance comparison table
+- Quality assessment report
+- Edge case documentation
+
+#### Week 5: Bonus Features and Polish
+**Dates:** Nov 16-22, 2025
 
 **Milestones:**
 - [ ] Simple sticker overlay system ⚠️ **Bonus Feature**
@@ -463,20 +492,36 @@ Perceptual quality: Acceptable for demos
   - [ ] Webcam integration for Colab
   - [ ] Example outputs and visualizations
 
-- [ ] Final documentation and presentation
-  - [ ] README with installation guide
-  - [ ] Performance benchmarking report
-  - [ ] Demo video (2-3 minutes)
-  - [ ] Presentation slides
-
 **Deliverables:**
 - `SberSwap_Realtime_Colab.ipynb`
 - Simple sticker overlay system (bonus)
 - Multi-source face selection (bonus)
+- Comprehensive testing results
+
+#### Week 6: Final Documentation and Presentation
+**Dates:** Nov 23 - Dec 4, 2025
+
+**Milestones:**
+- [ ] Final documentation and presentation
+  - [ ] README with installation guide
+  - [ ] Performance benchmarking report
+  - [ ] Demo video (2-3 minutes)
+  - [ ] Presentation slides (15-20 slides)
+  - [ ] Live demo setup
+  - [ ] Q&A preparation
+
+- [ ] Project submission
+  - [ ] Final code review and cleanup
+  - [ ] GitHub release with complete code
+  - [ ] Final project report (10-15 pages)
+  - [ ] Submit to Canvas/Gradescope
+
+**Deliverables:**
 - Final project report (10-15 pages)
 - Demo video showcasing real-time swapping
 - Presentation slides (15-20 slides)
 - GitHub release with complete code
+- All deliverables submitted by Dec 4 deadline
 
 ### Risk Management
 
@@ -556,7 +601,7 @@ This hybrid approach ensures delivery of core functionality while acknowledging 
 
 ## Conclusion
 
-This project successfully establishes a baseline face swapping system and presents a realistic path toward real-time performance through systematic optimization. With the foundation completed (Week 1) and a detailed implementation plan for real-time enhancement (Weeks 2-4), we are positioned to achieve our primary goal of 15-18 FPS face swapping with additional improvements in lighting robustness and non-frontal angle support.
+This project successfully establishes a baseline face swapping system and presents a realistic path toward real-time performance through systematic optimization. With the foundation completed (Week 1) and a detailed implementation plan spanning 6 weeks (Oct 26 - Dec 4), we are positioned to achieve our primary goal of 15-18 FPS face swapping with additional improvements in lighting robustness and non-frontal angle support.
 
 The hybrid approach balances ambitious goals with realistic constraints, ensuring delivery of core features while leaving room for bonus functionality. The combination of proven optimization techniques (face tracking, caching, lighting correction) with comprehensive documentation and testing ensures both technical success and educational value for the CIS5810 course objectives.
 
@@ -568,9 +613,10 @@ The hybrid approach balances ambitious goals with realistic constraints, ensurin
 
 ---
 
-**Total Word Count:** ~2,950 words  
+**Total Word Count:** ~3,200 words  
 **Estimated PDF Length:** 3 pages (formatted)  
 **GitHub Repository:** https://github.com/SmashCodeJJ/CIS5810_FinalProject  
 **Branch:** Youxin (development)  
+**Project Duration:** Oct 26 - Dec 4, 2025 (6 weeks)  
 **Last Updated:** October 26, 2025
 
