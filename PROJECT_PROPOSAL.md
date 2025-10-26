@@ -359,10 +359,10 @@ Perceptual quality: Acceptable for demos
 
 ## 6. Project Timeline, Milestones, and Organization
 
-### Project Timeline (6 Weeks)
+### Project Timeline (8 Weeks)
 
 #### Week 1: Setup and Baseline (Completed ✅)
-**Dates:** Oct 19-25, 2025
+**Dates:** Oct 6-12, 2025
 
 **Milestones:**
 - [✅] Environment setup in Google Colab
@@ -377,7 +377,7 @@ Perceptual quality: Acceptable for demos
 - Comprehensive documentation (4 guides, 2,300+ lines)
 
 #### Week 2: Real-Time Implementation - Phase 1 & 2
-**Dates:** Oct 26 - Nov 1, 2025
+**Dates:** Oct 13-19, 2025
 
 **Milestones:**
 - [ ] Implement basic real-time pipeline (Phase 1)
@@ -407,7 +407,7 @@ Perceptual quality: Acceptable for demos
 - Working demo achieving 15+ FPS
 
 #### Week 3: Advanced Optimization and Testing
-**Dates:** Nov 2-8, 2025
+**Dates:** Oct 20-26, 2025
 
 **Milestones:**
 - [ ] Non-frontal angle improvement ⭐ **Primary Goal**
@@ -442,7 +442,7 @@ Perceptual quality: Acceptable for demos
 - Quality assessment report
 
 #### Week 4: Advanced Features and Testing
-**Dates:** Nov 9-15, 2025
+**Dates:** Oct 27 - Nov 2, 2025
 
 **Milestones:**
 - [ ] Multi-threading implementation (Phase 3) ⚠️ **Stretch Goal**
@@ -471,7 +471,7 @@ Perceptual quality: Acceptable for demos
 - Edge case documentation
 
 #### Week 5: Bonus Features and Polish
-**Dates:** Nov 16-22, 2025
+**Dates:** Nov 3-9, 2025
 
 **Milestones:**
 - [ ] Simple sticker overlay system ⚠️ **Bonus Feature**
@@ -498,8 +498,30 @@ Perceptual quality: Acceptable for demos
 - Multi-source face selection (bonus)
 - Comprehensive testing results
 
-#### Week 6: Final Documentation and Presentation
-**Dates:** Nov 23 - Dec 4, 2025
+#### Week 6: Additional Features and Testing
+**Dates:** Nov 10-16, 2025
+
+**Milestones:**
+- [ ] Extended testing and optimization
+  - [ ] Performance benchmarking across different scenarios
+  - [ ] Edge case testing and bug fixes
+  - [ ] Code optimization and cleanup
+  - [ ] User interface improvements
+
+- [ ] Advanced features (if time permits)
+  - [ ] Multi-face real-time swapping
+  - [ ] Advanced sticker animations
+  - [ ] Web interface prototype
+  - [ ] Model quantization experiments
+
+**Deliverables:**
+- Comprehensive performance benchmarks
+- Bug fixes and optimizations
+- Extended feature set
+- Code cleanup and documentation
+
+#### Week 7: Documentation and Presentation Prep
+**Dates:** Nov 17-23, 2025
 
 **Milestones:**
 - [ ] Final documentation and presentation
@@ -510,18 +532,34 @@ Perceptual quality: Acceptable for demos
   - [ ] Live demo setup
   - [ ] Q&A preparation
 
+**Deliverables:**
+- Final project report (10-15 pages)
+- Demo video showcasing real-time swapping
+- Presentation slides (15-20 slides)
+- Comprehensive documentation
+
+#### Week 8: Final Submission
+**Dates:** Nov 24 - Dec 4, 2025
+
+**Milestones:**
 - [ ] Project submission
   - [ ] Final code review and cleanup
   - [ ] GitHub release with complete code
   - [ ] Final project report (10-15 pages)
   - [ ] Submit to Canvas/Gradescope
+  - [ ] Presentation delivery
+
+- [ ] Final polish and testing
+  - [ ] Last-minute bug fixes
+  - [ ] Performance optimization
+  - [ ] Documentation review
+  - [ ] Demo preparation
 
 **Deliverables:**
-- Final project report (10-15 pages)
-- Demo video showcasing real-time swapping
-- Presentation slides (15-20 slides)
 - GitHub release with complete code
 - All deliverables submitted by Dec 4 deadline
+- Final presentation delivered
+- Project completion
 
 ### Risk Management
 
@@ -601,7 +639,7 @@ This hybrid approach ensures delivery of core functionality while acknowledging 
 
 ## Conclusion
 
-This project successfully establishes a baseline face swapping system and presents a realistic path toward real-time performance through systematic optimization. With the foundation completed (Week 1) and a detailed implementation plan spanning 6 weeks (Oct 26 - Dec 4), we are positioned to achieve our primary goal of 15-18 FPS face swapping with additional improvements in lighting robustness and non-frontal angle support.
+This project successfully establishes a baseline face swapping system and presents a realistic path toward real-time performance through systematic optimization. With the foundation completed (Week 1) and a detailed implementation plan spanning 8 weeks (Oct 6 - Dec 4), we are positioned to achieve our primary goal of 15-18 FPS face swapping with additional improvements in lighting robustness and non-frontal angle support.
 
 The hybrid approach balances ambitious goals with realistic constraints, ensuring delivery of core features while leaving room for bonus functionality. The combination of proven optimization techniques (face tracking, caching, lighting correction) with comprehensive documentation and testing ensures both technical success and educational value for the CIS5810 course objectives.
 
@@ -613,10 +651,10 @@ The hybrid approach balances ambitious goals with realistic constraints, ensurin
 
 ---
 
-**Total Word Count:** ~3,200 words  
+**Total Word Count:** ~3,300 words  
 **Estimated PDF Length:** 3 pages (formatted)  
 **GitHub Repository:** https://github.com/SmashCodeJJ/CIS5810_FinalProject  
 **Branch:** Youxin (development)  
-**Project Duration:** Oct 26 - Dec 4, 2025 (6 weeks)  
+**Project Duration:** Oct 6 - Dec 4, 2025 (8 weeks)  
 **Last Updated:** October 26, 2025
 
