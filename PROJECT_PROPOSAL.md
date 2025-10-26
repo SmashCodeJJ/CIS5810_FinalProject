@@ -359,55 +359,12 @@ Perceptual quality: Acceptable for demos
 
 ## 6. Project Timeline, Milestones, and Organization
 
-### Project Timeline (8 Weeks)
+### Project Timeline (6 Weeks Remaining)
 
-#### Week 1: Setup and Baseline (Completed ✅)
-**Dates:** Oct 6-12, 2025
+**Previous Work (Weeks 1-2):** Successfully completed baseline implementation, environment setup, dependency modernization, and initial real-time pipeline development. Performance baseline established at 4.3 FPS with comprehensive documentation created.
 
-**Milestones:**
-- [✅] Environment setup in Google Colab
-- [✅] Dependency modernization (PyTorch 2.2, NumPy 2.0)
-- [✅] Fix compatibility issues (12 issues resolved)
-- [✅] Baseline image/video swapping working
-- [✅] Performance profiling and bottleneck analysis
-
-**Deliverables:**
-- Working face swap pipeline
-- Performance benchmarks (4.3 FPS baseline)
-- Comprehensive documentation (4 guides, 2,300+ lines)
-
-#### Week 2: Real-Time Implementation - Phase 1 & 2
-**Dates:** Oct 13-19, 2025
-
-**Milestones:**
-- [ ] Implement basic real-time pipeline (Phase 1)
-  - [ ] Create `inference_realtime.py`
-  - [ ] Add webcam/video capture
-  - [ ] Frame-by-frame processing
-  - [ ] Display with FPS counter
-  - **Target:** 8-12 FPS
-
-- [ ] Add face tracking optimization (Phase 2) ⭐ **Primary Goal**
-  - [ ] Implement OpenCV tracker (KCF/CSRT)
-  - [ ] Detection every N frames (5 frame interval)
-  - [ ] Re-detection on tracking failure
-  - [ ] Smooth tracking with Kalman filter
-  - **Target:** 15-18 FPS
-
-- [ ] Basic lighting improvement
-  - [ ] Color correction post-processing
-  - [ ] Histogram matching implementation
-  - [ ] Lighting condition detection
-  - **Target:** Handle backlit scenarios
-
-**Deliverables:**
-- `inference_realtime.py` (~300 lines)
-- `utils/realtime/face_tracker.py` (~150 lines)
-- `utils/realtime/performance_monitor.py` (~100 lines)
-- Working demo achieving 15+ FPS
-
-#### Week 3: Advanced Optimization and Testing
-**Dates:** Oct 20-26, 2025
+#### Week 3: Advanced Optimization and Testing (Current Week)
+**Dates:** Oct 27 - Nov 2, 2025
 
 **Milestones:**
 - [ ] Non-frontal angle improvement ⭐ **Primary Goal**
@@ -442,7 +399,7 @@ Perceptual quality: Acceptable for demos
 - Quality assessment report
 
 #### Week 4: Advanced Features and Testing
-**Dates:** Oct 27 - Nov 2, 2025
+**Dates:** Nov 3-9, 2025
 
 **Milestones:**
 - [ ] Multi-threading implementation (Phase 3) ⚠️ **Stretch Goal**
@@ -471,7 +428,7 @@ Perceptual quality: Acceptable for demos
 - Edge case documentation
 
 #### Week 5: Bonus Features and Polish
-**Dates:** Nov 3-9, 2025
+**Dates:** Nov 10-16, 2025
 
 **Milestones:**
 - [ ] Simple sticker overlay system ⚠️ **Bonus Feature**
@@ -499,7 +456,7 @@ Perceptual quality: Acceptable for demos
 - Comprehensive testing results
 
 #### Week 6: Additional Features and Testing
-**Dates:** Nov 10-16, 2025
+**Dates:** Nov 17-23, 2025
 
 **Milestones:**
 - [ ] Extended testing and optimization
@@ -521,7 +478,7 @@ Perceptual quality: Acceptable for demos
 - Code cleanup and documentation
 
 #### Week 7: Documentation and Presentation Prep
-**Dates:** Nov 17-23, 2025
+**Dates:** Nov 24-30, 2025
 
 **Milestones:**
 - [ ] Final documentation and presentation
@@ -539,7 +496,7 @@ Perceptual quality: Acceptable for demos
 - Comprehensive documentation
 
 #### Week 8: Final Submission
-**Dates:** Nov 24 - Dec 4, 2025
+**Dates:** Dec 1-4, 2025
 
 **Milestones:**
 - [ ] Project submission
@@ -639,7 +596,7 @@ This hybrid approach ensures delivery of core functionality while acknowledging 
 
 ## Conclusion
 
-This project successfully establishes a baseline face swapping system and presents a realistic path toward real-time performance through systematic optimization. With the foundation completed (Week 1) and a detailed implementation plan spanning 8 weeks (Oct 6 - Dec 4), we are positioned to achieve our primary goal of 15-18 FPS face swapping with additional improvements in lighting robustness and non-frontal angle support.
+This project successfully establishes a baseline face swapping system and presents a realistic path toward real-time performance through systematic optimization. With the foundation completed in previous weeks and a detailed implementation plan spanning 6 remaining weeks (Oct 27 - Dec 4), we are positioned to achieve our primary goal of 15-18 FPS face swapping with additional improvements in lighting robustness and non-frontal angle support.
 
 The hybrid approach balances ambitious goals with realistic constraints, ensuring delivery of core features while leaving room for bonus functionality. The combination of proven optimization techniques (face tracking, caching, lighting correction) with comprehensive documentation and testing ensures both technical success and educational value for the CIS5810 course objectives.
 
@@ -651,10 +608,10 @@ The hybrid approach balances ambitious goals with realistic constraints, ensurin
 
 ---
 
-**Total Word Count:** ~3,300 words  
+**Total Word Count:** ~3,200 words  
 **Estimated PDF Length:** 3 pages (formatted)  
 **GitHub Repository:** https://github.com/SmashCodeJJ/CIS5810_FinalProject  
 **Branch:** Youxin (development)  
-**Project Duration:** Oct 6 - Dec 4, 2025 (8 weeks)  
+**Remaining Duration:** Oct 27 - Dec 4, 2025 (6 weeks)  
 **Last Updated:** October 26, 2025
 
