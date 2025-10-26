@@ -520,33 +520,37 @@ Perceptual quality: Acceptable for demos
 
 ### Duties and Responsibilities (Two-Person Group)
 
-**Member 1: Lead Developer & System Architect**
-- **Week 3:** Advanced optimization implementation (non-frontal angles, multi-threading)
-- **Week 4:** Advanced features development and core system testing
-- **Week 5:** Bonus features implementation (sticker system, multi-source selection)
-- **Week 6:** Extended testing, optimization, and performance benchmarking
-- **Week 7:** Technical documentation, code review, and system integration
-- **Week 8:** Final code cleanup, GitHub management, and technical presentation prep
+**Member 1: Core System & Optimization Lead**
+- **Real-Time Performance:** Face tracking implementation, caching optimization, FPS improvement (15-18 FPS target)
+- **Non-Frontal Angles:** Multi-angle face detection, pose-aware processing, ±45° angle support
+- **Multi-Threading:** Thread-safe model inference, queue management, parallel processing (20-25 FPS stretch goal)
+- **Performance Benchmarking:** Bottleneck analysis, optimization metrics, speed comparisons
+- **Core System Integration:** Model coordination, pipeline optimization, technical architecture
 
-**Member 2: Documentation Specialist & Testing Coordinator**
-- **Week 3:** Testing framework setup, quality assessment, and edge case identification
-- **Week 4:** Comprehensive testing execution, bug reporting, and performance analysis
-- **Week 5:** User interface development, Colab notebook creation, and user documentation
-- **Week 6:** Extended testing scenarios, user experience optimization, and feedback collection
-- **Week 7:** Final documentation writing, presentation slides, and demo video creation
-- **Week 8:** Final report writing, presentation delivery, and submission coordination
+**Member 2: User Experience & Advanced Features Lead**
+- **Lighting Robustness:** Color correction, histogram matching, backlit scenario handling
+- **Face Stickers:** Landmark-based sticker positioning, 2-3 sticker types (glasses, hat, mustache)
+- **Multi-Source Selection:** Age/gender variation via different source faces, user interface
+- **Google Colab Integration:** Notebook creation, webcam access, user-friendly interface
+- **Documentation & Presentation:** User guides, demo videos, presentation slides, final report
 
 **Shared Responsibilities:**
-- **Code Review:** Both members review each other's code weekly
-- **Testing:** Both participate in testing sessions and quality assurance
+- **Testing & Quality Assurance:** Both participate in comprehensive testing and bug reporting
+- **Code Review:** Weekly peer review sessions for all implementations
 - **Documentation:** Both contribute to technical documentation and user guides
-- **Presentation:** Both prepare and deliver final presentation together
+- **Presentation:** Joint preparation and delivery of final presentation
 - **Communication:** Daily standup meetings and weekly progress reviews
 
+**Feature-Specific Collaboration:**
+- **Real-Time + Lighting:** Member 1 handles optimization, Member 2 handles lighting correction integration
+- **Non-Frontal + Stickers:** Member 1 handles angle detection, Member 2 handles sticker positioning
+- **Multi-Threading + Colab:** Member 1 handles threading, Member 2 handles Colab integration
+- **Performance + Documentation:** Member 1 provides metrics, Member 2 creates user documentation
+
 **Communication Protocol:**
-- **Daily:** Brief status updates via Slack/Discord
-- **Weekly:** Detailed progress review and milestone planning
-- **Bi-weekly:** Code review sessions and technical discussions
+- **Daily:** Brief status updates on assigned features via Slack/Discord
+- **Weekly:** Detailed progress review and feature integration planning
+- **Bi-weekly:** Cross-feature testing sessions and technical discussions
 - **Final Week:** Intensive collaboration for presentation and submission
 
 ### Risk Management
@@ -560,8 +564,9 @@ Perceptual quality: Acceptable for demos
 | Bonus features incomplete | High | Low | Prioritize core features, bonus optional |
 | GPU memory overflow | Low | High | Reduce batch size, add memory monitoring |
 | Tracking instability | Medium | Medium | Frequent re-detection, Kalman smoothing |
-| Group coordination issues | Medium | Medium | Daily communication, shared documentation |
-| Uneven workload distribution | Medium | Low | Weekly workload review and adjustment |
+| Feature integration issues | Medium | Medium | Weekly integration testing, shared codebase |
+| Uneven feature complexity | Medium | Low | Regular workload assessment and rebalancing |
+| Cross-feature dependencies | Medium | Medium | Clear interface definitions, early integration |
 
 ### Success Criteria
 
