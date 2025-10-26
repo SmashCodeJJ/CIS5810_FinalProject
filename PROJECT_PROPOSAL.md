@@ -518,6 +518,37 @@ Perceptual quality: Acceptable for demos
 - Final presentation delivered
 - Project completion
 
+### Duties and Responsibilities (Two-Person Group)
+
+**Member 1: Lead Developer & System Architect**
+- **Week 3:** Advanced optimization implementation (non-frontal angles, multi-threading)
+- **Week 4:** Advanced features development and core system testing
+- **Week 5:** Bonus features implementation (sticker system, multi-source selection)
+- **Week 6:** Extended testing, optimization, and performance benchmarking
+- **Week 7:** Technical documentation, code review, and system integration
+- **Week 8:** Final code cleanup, GitHub management, and technical presentation prep
+
+**Member 2: Documentation Specialist & Testing Coordinator**
+- **Week 3:** Testing framework setup, quality assessment, and edge case identification
+- **Week 4:** Comprehensive testing execution, bug reporting, and performance analysis
+- **Week 5:** User interface development, Colab notebook creation, and user documentation
+- **Week 6:** Extended testing scenarios, user experience optimization, and feedback collection
+- **Week 7:** Final documentation writing, presentation slides, and demo video creation
+- **Week 8:** Final report writing, presentation delivery, and submission coordination
+
+**Shared Responsibilities:**
+- **Code Review:** Both members review each other's code weekly
+- **Testing:** Both participate in testing sessions and quality assurance
+- **Documentation:** Both contribute to technical documentation and user guides
+- **Presentation:** Both prepare and deliver final presentation together
+- **Communication:** Daily standup meetings and weekly progress reviews
+
+**Communication Protocol:**
+- **Daily:** Brief status updates via Slack/Discord
+- **Weekly:** Detailed progress review and milestone planning
+- **Bi-weekly:** Code review sessions and technical discussions
+- **Final Week:** Intensive collaboration for presentation and submission
+
 ### Risk Management
 
 | **Risk** | **Probability** | **Impact** | **Mitigation** |
@@ -529,6 +560,8 @@ Perceptual quality: Acceptable for demos
 | Bonus features incomplete | High | Low | Prioritize core features, bonus optional |
 | GPU memory overflow | Low | High | Reduce batch size, add memory monitoring |
 | Tracking instability | Medium | Medium | Frequent re-detection, Kalman smoothing |
+| Group coordination issues | Medium | Medium | Daily communication, shared documentation |
+| Uneven workload distribution | Medium | Low | Weekly workload review and adjustment |
 
 ### Success Criteria
 
