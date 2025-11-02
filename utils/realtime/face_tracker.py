@@ -52,8 +52,8 @@ class FaceTracker:
         Returns: (x, y, w, h) bounding box or None
         """
         try:
-            # Detect faces using insightface
-            bboxes, _ = self.detector.detect(frame, max_num=1)
+            # Use det_model directly (the internal detection model)
+            bboxes, _ = self.detector.det_model.detect(frame, max_num=1, metric='default')
             
             if bboxes.shape[0] == 0:
                 return None
@@ -77,6 +77,8 @@ class FaceTracker:
             
         except Exception as e:
             print(f"Face detection error: {e}")
+            import traceback
+            traceback.print_exc()
             return None
     
     def _track_face(self, frame: np.ndarray) -> Optional[Tuple[int, int, int, int]]:
