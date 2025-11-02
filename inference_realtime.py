@@ -188,7 +188,7 @@ def main(args):
             # Record metrics
             monitor.record_detection_time(det_time)
             monitor.record_generator_time(gen_time)
-            total_time = (time.time() - monitor.last_frame_time) * 1000 if monitor.last_frame_time else 0
+            total_time = (time.time() - monitor.frame_start_time) * 1000 if monitor.frame_start_time else 0
             monitor.record_processing_time(total_time)
             monitor.end_frame()
             

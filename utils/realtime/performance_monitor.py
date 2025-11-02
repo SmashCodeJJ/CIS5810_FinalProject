@@ -25,18 +25,19 @@ class PerformanceMonitor:
         
         self.frame_count = 0
         self.start_time = time.time()
-        self.last_frame_time = None
+        self.frame_start_time = None
         
     def start_frame(self):
         """Mark the start of frame processing"""
-        self.last_frame_time = time.time()
+        self.frame_start_time = time.time()
         self.frame_count += 1
     
     def end_frame(self):
         """Mark the end of frame processing"""
-        if self.last_frame_time is not None:
-            elapsed = time.time() - self.last_frame_time
+        if self.frame_start_time is not None:
+            elapsed = time.time() - self.frame_start_time
             self.frame_times.append(elapsed)
+            self.frame_start_time = None
     
     def record_detection_time(self, time_ms: float):
         """Record face detection/tracking time"""
