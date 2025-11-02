@@ -52,8 +52,17 @@ class FaceTracker:
         Returns: (x, y, w, h) bounding box or None
         """
         try:
-            # Use det_model directly (the internal detection model)
-            bboxes, _ = self.detector.det_model.detect(frame, max_num=1, metric='default')
+            # Access the detection model from the detector's models dict
+            if not hasattr(self.detector, 'det_model'):
+                # Fallback: access via models dict
+                det_model = self.detector.models.get('detection')
+                if det_model is None:
+                    raise AttributeError("Detection model not found")
+            else:
+                det_model = self.detector.det_model
+            
+            # Detect faces
+            bboxes, _ = det_model.detect(frame, max_num=1, metric='default')
             
             if bboxes.shape[0] == 0:
                 return None
