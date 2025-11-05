@@ -24,7 +24,7 @@ def process_single_frame(
     handler,
     bbox: Optional[Tuple[int, int, int, int]] = None,
     crop_size: int = 224,
-    half: bool = True
+    half: bool = False  # Changed default to False for stability
 ) -> Tuple[Optional[np.ndarray], float, float]:
     """
     Process a single frame for real-time face swapping
@@ -87,39 +87,68 @@ def process_single_frame(
         # Crop and align face
         crop_face = cv2.warpAffine(frame, M, (crop_size, crop_size), borderValue=0.0)
         
-        # Get target embedding
+        # Get target embedding (use original crop size)
         target_norm = normalize_and_torch(crop_face)
         target_embed = netArc(F.interpolate(target_norm, scale_factor=0.5, mode='bilinear', align_corners=True))
         
-        # Normalize and prepare for generator
-        target_tensor = torch.from_numpy(crop_face.copy()).cuda()
-        target_tensor = target_tensor[:, :, [2, 1, 0]] / 255.0
+        # Resize to 256x256 for generator (generator expects this size, not crop_size)
+        # Use INTER_LINEAR for consistent resizing (same as resize_frames function)
+        generator_input_size = 256
         
-        if half:
-            target_tensor = target_tensor.half()
-        else:
-            target_tensor = target_tensor.float()
+        # Debug: print original crop_face shape
+        print(f"DEBUG: crop_face shape before resize: {crop_face.shape}")
         
-        target_tensor = (target_tensor - 0.5) / 0.5
-        target_tensor = target_tensor.permute(2, 0, 1).unsqueeze(0)
+        crop_face_resized = cv2.resize(
+            crop_face, 
+            (generator_input_size, generator_input_size),
+            interpolation=cv2.INTER_LINEAR
+        )
         
-        # Prepare source embed
-        if half:
-            source_embed_half = source_embed.half()
-        else:
-            source_embed_half = source_embed.float()
+        # Debug: verify resized shape
+        print(f"DEBUG: crop_face_resized shape: {crop_face_resized.shape}")
+        assert crop_face_resized.shape == (256, 256, 3), f"Resize failed: {crop_face_resized.shape}"
+        
+        # Transform to torch tensor - match transform_target_to_torch exactly
+        # This ensures exact same preprocessing and normalization as working inference code
+        # Input: (H, W, C) = (256, 256, 3) numpy array
+        crop_face_batch = np.expand_dims(crop_face_resized, axis=0)  # Add batch dim: (1, 256, 256, 3)
+        
+        print(f"DEBUG: crop_face_batch shape: {crop_face_batch.shape}")
+        
+        # Convert to torch tensor and normalize (same as transform_target_to_torch)
+        target_tensor = torch.from_numpy(crop_face_batch.copy()).cuda()
+        target_tensor = target_tensor[:, :, :, [2, 1, 0]] / 255.0  # BGR to RGB, normalize to [0, 1]
+        
+        # Always use FP32 for stability (FP16 causes dimension mismatch errors)
+        target_tensor = target_tensor.float()
+        
+        target_tensor = (target_tensor - 0.5) / 0.5  # Normalize to [-1, 1]
+        target_tensor = target_tensor.permute(0, 3, 1, 2)  # (1, 3, 256, 256)
+        
+        # Verify final shape and print
+        print(f"DEBUG: target_tensor shape before G: {target_tensor.shape}")
+        assert target_tensor.shape == (1, 3, generator_input_size, generator_input_size), \
+            f"Expected shape (1, 3, {generator_input_size}, {generator_input_size}), got {target_tensor.shape}"
+        
+        # Prepare source embed - always use FP32 for stability
+        source_embed_half = source_embed.float()
+        
+        print(f"DEBUG: source_embed_half shape: {source_embed_half.shape}")
+        print(f"DEBUG: Generator dtype: {next(G.parameters()).dtype}")
         
         generator_start = time.time()
         
         # Run generator (single frame)
+        print("DEBUG: Calling faceshifter_batch...")
         swapped_face = faceshifter_batch(source_embed_half, target_tensor, G)
+        print("DEBUG: faceshifter_batch completed successfully")
         generator_time = (time.time() - generator_start) * 1000
         
-        # Convert to numpy
-        swapped_face_np = swapped_face[0].cpu().numpy().transpose(1, 2, 0)
-        swapped_face_np = ((swapped_face_np + 1) / 2 * 255).clip(0, 255).astype(np.uint8)
+        # Convert to numpy (faceshifter_batch already returns uint8 BGR format)
+        # swapped_face shape is (1, H, W, C) from faceshifter_batch
+        swapped_face_np = swapped_face[0]  # Already uint8 BGR format from faceshifter_batch
         
-        # Resize to crop size
+        # Resize to crop size for blending (generator outputs 256x256, resize to original crop_size)
         swapped_face_resized = cv2.resize(swapped_face_np, (crop_size, crop_size))
         
         # Get landmarks for blending
