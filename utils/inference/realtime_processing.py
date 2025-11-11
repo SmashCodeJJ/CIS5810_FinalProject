@@ -84,8 +84,24 @@ def process_single_frame(
         if M.dtype != np.float32:
             M = M.astype(np.float32)
         
-        # Crop and align face
-        crop_face = cv2.warpAffine(frame, M, (crop_size, crop_size), borderValue=0.0)
+        # Modify transformation matrix to include more forehead
+        # The original M centers around eyes/nose/mouth, missing forehead
+        # Shift the crop upward and expand slightly to capture full face including forehead
+        M_adjusted = M.copy()
+        
+        # Shift upward by moving Y translation (more negative = more forehead)
+        # M_adjusted[1, 2] controls vertical shift
+        forehead_shift = crop_size * 0.15  # Shift up by 15% of crop size to include forehead
+        M_adjusted[1, 2] -= forehead_shift
+        
+        # Optional: slightly scale to fit more face
+        # This makes the face slightly smaller to fit forehead in frame
+        scale_factor = 0.9  # 90% size = 10% more area covered
+        M_adjusted[0, 0] *= scale_factor  # X scale
+        M_adjusted[1, 1] *= scale_factor  # Y scale
+        
+        # Crop and align face with adjusted matrix (includes forehead now)
+        crop_face = cv2.warpAffine(frame, M_adjusted, (crop_size, crop_size), borderValue=0.0)
         
         # Get target embedding (use original crop size)
         target_norm = normalize_and_torch(crop_face)
@@ -168,8 +184,8 @@ def process_single_frame(
             mask = (dist_from_center <= radius).astype(np.float32)
             mask = cv2.GaussianBlur(mask, (15, 15), 10)
         
-        # Inverse transform
-        mat_rev = cv2.invertAffineTransform(M)
+        # Inverse transform (use adjusted matrix to match the crop)
+        mat_rev = cv2.invertAffineTransform(M_adjusted)
         
         # Warp swapped face and mask back to original frame
         swap_warped = cv2.warpAffine(
