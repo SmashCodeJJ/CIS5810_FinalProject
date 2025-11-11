@@ -84,24 +84,8 @@ def process_single_frame(
         if M.dtype != np.float32:
             M = M.astype(np.float32)
         
-        # Modify transformation matrix to include more forehead
-        # The original M centers around eyes/nose/mouth, missing forehead
-        # Shift the crop upward and expand slightly to capture full face including forehead
-        M_adjusted = M.copy()
-        
-        # Shift upward by moving Y translation (more negative = more forehead)
-        # M_adjusted[1, 2] controls vertical shift
-        forehead_shift = crop_size * 0.15  # Shift up by 15% of crop size to include forehead
-        M_adjusted[1, 2] -= forehead_shift
-        
-        # Optional: slightly scale to fit more face
-        # This makes the face slightly smaller to fit forehead in frame
-        scale_factor = 0.9  # 90% size = 10% more area covered
-        M_adjusted[0, 0] *= scale_factor  # X scale
-        M_adjusted[1, 1] *= scale_factor  # Y scale
-        
-        # Crop and align face with adjusted matrix (includes forehead now)
-        crop_face = cv2.warpAffine(frame, M_adjusted, (crop_size, crop_size), borderValue=0.0)
+        # Crop and align face (use original M for proper alignment)
+        crop_face = cv2.warpAffine(frame, M, (crop_size, crop_size), borderValue=0.0)
         
         # Get target embedding (use original crop size)
         target_norm = normalize_and_torch(crop_face)
@@ -174,18 +158,30 @@ def process_single_frame(
         # Generate mask
         mask, _ = face_mask_static(crop_face, landmarks, landmarks_tgt, None)
         
+        # Expand mask to include more forehead area
+        # Dilate the mask to cover a larger area
+        kernel_size = int(crop_size * 0.08)  # 8% of face size
+        if kernel_size % 2 == 0:
+            kernel_size += 1  # Must be odd
+        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (kernel_size, kernel_size))
+        mask = cv2.dilate(mask, kernel, iterations=2)
+        
+        # Smooth the mask edges for better blending
+        mask = cv2.GaussianBlur(mask, (21, 21), 11)
+        
         # Fallback mask if needed
         if mask.max() == 0:
             h, w = mask.shape
             center = (w // 2, h // 2)
-            radius = min(w, h) // 2 - 10
+            # Larger radius to include forehead
+            radius = int(min(w, h) * 0.48)  # 48% of face size (larger than before)
             Y, X = np.ogrid[:h, :w]
             dist_from_center = np.sqrt((X - center[0])**2 + (Y - center[1])**2)
             mask = (dist_from_center <= radius).astype(np.float32)
-            mask = cv2.GaussianBlur(mask, (15, 15), 10)
+            mask = cv2.GaussianBlur(mask, (21, 21), 11)
         
-        # Inverse transform (use adjusted matrix to match the crop)
-        mat_rev = cv2.invertAffineTransform(M_adjusted)
+        # Inverse transform
+        mat_rev = cv2.invertAffineTransform(M)
         
         # Warp swapped face and mask back to original frame
         swap_warped = cv2.warpAffine(
