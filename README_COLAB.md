@@ -181,3 +181,4 @@ Found a bug or want to improve compatibility? PRs welcome!
 **Made with ❤️ for Google Colab users**  
 Last updated: October 2025
 
+
